@@ -22,11 +22,14 @@ class CommentViewSet(viewsets.ModelViewSet):
     API endpoint that allows comments to be viewed or edited.
     """
     serializer_class = CommentSerializer
+    queryset = Comment.objects.all()
+
     def get_queryset(self):
+        _queryset = self.queryset
         message_id = self.request.GET.get('message_id')
         if message_id:
-            return Comment.objects.filter(message__id=message_id)
-        else:
-            return Comment.objects.all()
+            message_id = int(message_id)
+            queryset = _queryset.filter(message__id=message_id)
+        return _queryset
 
 
