@@ -25,7 +25,6 @@
             <p class="msg-date" v-html="msg.date"></p>
             <input type="submit" @click="deleteMessage(msg.pk)" value="Delete" />
         </div>
-        <block-comments></block-comments>
     </div>
 </template>
 
@@ -54,7 +53,7 @@
         },
         components:{
             'blockComments':Comments
-        }
+        },
     };
 </script>
 

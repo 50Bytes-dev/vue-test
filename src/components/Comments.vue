@@ -1,6 +1,6 @@
 <template>
     <div>
-        <input type="text">
+        <input type="text" placeholder="No gud Jopa">
         <button>Add</button>
     </div>
 </template>

@@ -25,5 +25,5 @@ class Comment(models.Model):
 
 class CommentSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = Message
-        fields = ('url', 'text', 'date', 'pk')
+        model = Comment
+        fields = ('url', 'text', 'date', 'message', 'pk')

@@ -29,7 +29,7 @@ class CommentViewSet(viewsets.ModelViewSet):
         message_id = self.request.GET.get('message_id')
         if message_id:
             message_id = int(message_id)
-            queryset = _queryset.filter(message__id=message_id)
+            _queryset = _queryset.filter(message__id=message_id)
         return _queryset
 
 
