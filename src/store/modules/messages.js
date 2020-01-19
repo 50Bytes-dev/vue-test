@@ -5,7 +5,7 @@ const state = {
 }
 
 const getters = {
-  messages: state => {
+  messages: function(state) {
     return state.messages
   }
 }
