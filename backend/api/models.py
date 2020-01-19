@@ -12,4 +12,18 @@ class Message(models.Model):
 class MessageSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Message
-        fields = ('url', 'subject', 'body', 'data', 'pk')
+        fields = ('url', 'subject', 'body', 'date', 'pk')
+
+
+#############################################################################
+
+
+class Comment(models.Model):
+    text = models.TextField()
+    date = models.DateTimeField(default=datetime.now)
+    message = models.ForeignKey(Message, on_delete=models.CASCADE, related_name='comments')
+
+class CommentSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Message
+        fields = ('url', 'text', 'date', 'pk')

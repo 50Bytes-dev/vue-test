@@ -2,7 +2,7 @@ from django.views.generic import TemplateView
 from django.views.decorators.cache import never_cache
 from rest_framework import viewsets
 
-from .models import Message, MessageSerializer
+from .models import Message, MessageSerializer, Comment, CommentSerializer
 
 
 # Serve Vue Application
@@ -15,5 +15,18 @@ class MessageViewSet(viewsets.ModelViewSet):
     """
     queryset = Message.objects.all()
     serializer_class = MessageSerializer
+
+
+class CommentViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows comments to be viewed or edited.
+    """
+    serializer_class = CommentSerializer
+    def get_queryset(self):
+        message_id = self.request.GET.get('message_id')
+        if message_id:
+            return Comment.objects.filter(message__id=message_id)
+        else:
+            return Comment.objects.all()
 
 
