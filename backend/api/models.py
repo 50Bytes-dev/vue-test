@@ -17,12 +17,6 @@ class Post(models.Model):
     # photos - from Photo
 
 
-class PostSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Post
-        fields = ['__all__']
-
-
 class Photo(models.Model):
     """sizes* text* post*"""
     photo_id = models.BigIntegerField()
@@ -30,8 +24,18 @@ class Photo(models.Model):
     text = models.TextField()
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='photos')
 
+
 class PhotoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Photo
-        fields = ['__all__']
+        fields = '__all__'
 
+
+class PostSerializer(serializers.ModelSerializer):
+    photos = PhotoSerializer(many=True, read_only=True)
+    date_post = serializers.DateTimeField(format="%Y-%m-%d %H:%M")
+    date_created = serializers.DateTimeField(format="%Y-%m-%d %H:%M")
+
+    class Meta:
+        model = Post
+        fields = '__all__'
