@@ -4,13 +4,13 @@ from django.test import TestCase
 from backend.api.models import *
 
 
-def generate_test_posts():
+def generate_test_posts(count, owner_id): #359659391
     session = vk.Session(
         access_token="ee0452bf382d80b4e94db2c7e4c1dc3d4babc12c66fbbb1d75f88d4f9d6cb10ce56c0b55aac04bdd058c8")
     api = vk.API(session)
     response = api.execute(
-        code="""
-        var response = API.wall.get({"owner_id": 359659391, "count": 50});
+        code=f"""
+        var response = API.wall.get({{"owner_id": {owner_id}, "count": {count}}});
         return response;
         """,
         v="5.103"
