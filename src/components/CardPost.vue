@@ -23,7 +23,17 @@
 
 <script>
     export default {
-        name: "Card"
+        name: "CardPost",
+        data(){
+            return{
+                photosObj:{},
+            }
+        },
+        props:['post'],
+        mounted:function () {
+            let textSizes = this.post.photos[0].sizes;
+            this.photosObg = JSON.parse(textSizes.replace(/'/g, '"'))
+        }
     }
 </script>
 
