@@ -1,4 +1,4 @@
-import messageService from '../../services/messageService'
+//import messageService from '../../services/catalogService'
 
 const state = {
   messages: []
@@ -23,6 +23,13 @@ const actions = {
       commit('addMessage', message)
     })
   },
+    editMessage({ commit }, message) {
+    messageService.editMessage(message)
+    .then((message) => {
+      commit('editMessage', message)
+    })
+  },
+
   deleteMessage( { commit }, msgId) {
     messageService.deleteMessage(msgId)
     commit('deleteMessage', msgId)
@@ -36,6 +43,12 @@ const mutations = {
   addMessage(state, message) {
     state.messages.push(message)
   },
+
+  editMessage(state, message) {
+    state.messages = state.messages.filter(obj => obj.pk !== message.pk);
+    state.messages.push(message)
+  },
+
   deleteMessage(state, msgId) {
     state.messages = state.messages.filter(obj => obj.pk !== msgId)
   }
