@@ -1,4 +1,4 @@
-import api from '@/services/api'
+//import api from '@/services/api'
 
 export default {
   fetchMessages() {
@@ -11,6 +11,10 @@ export default {
   },
   deleteMessage(msgId) {
     return api.delete(`messages/${msgId}`)
+              .then(response => response.data)
+  },
+    editMessage(payload) {
+    return api.put(`messages/${payload.pk}/`, payload)
               .then(response => response.data)
   }
 }
