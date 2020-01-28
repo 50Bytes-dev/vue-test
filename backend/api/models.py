@@ -1,29 +1,37 @@
 from datetime import datetime
 
-from django.db import models
+import vk
+from django.db import models, transaction
+from django.utils import timezone
 from rest_framework import serializers
 
 
-class Message(models.Model):
-    subject = models.CharField(max_length=200)
-    body = models.TextField()
-    date = models.DateTimeField(default=datetime.now)
-
-class MessageSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Message
-        fields = ('url', 'subject', 'body', 'date', 'pk')
-
-
-#############################################################################
-
-
-class Comment(models.Model):
+class Post(models.Model):
+    """post_id* from_id* owner_id* date_post* text* date_created"""
+    post_id = models.BigIntegerField()
+    from_id = models.BigIntegerField()
+    owner_id = models.BigIntegerField()
+    date_post = models.DateTimeField()
     text = models.TextField()
-    date = models.DateTimeField(default=datetime.now)
-    message = models.ForeignKey(Message, on_delete=models.CASCADE, related_name='comments')
+    date_created = models.DateTimeField(default=timezone.now)
+    # photos - from Photo
 
-class CommentSerializer(serializers.HyperlinkedModelSerializer):
+
+class PostSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Comment
-        fields = ('url', 'text', 'date', 'message', 'pk')
+        model = Post
+        fields = ['__all__']
+
+
+class Photo(models.Model):
+    """sizes* text* post*"""
+    photo_id = models.BigIntegerField()
+    sizes = models.TextField()
+    text = models.TextField()
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='photos')
+
+class PhotoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Photo
+        fields = ['__all__']
+
