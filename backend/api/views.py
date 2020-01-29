@@ -1,3 +1,4 @@
+from django.db.models import Prefetch
 from django.views.generic import TemplateView
 from django.views.decorators.cache import never_cache
 from rest_framework import viewsets
@@ -12,7 +13,9 @@ class PostViewSet(viewsets.ModelViewSet):
     """
     API конечная точка для Постов для редактирования и т.д.
     """
-    queryset = Post.objects.prefetch_related('photos').all()
+    queryset = Post.objects.prefetch_related(Prefetch(
+        'photos', queryset=Photo.objects.prefetch_related('sizes').all()
+    )).all()
     serializer_class = PostSerializer
 
 
