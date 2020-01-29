@@ -20,12 +20,29 @@ class Post(models.Model):
 class Photo(models.Model):
     """sizes* text* post*"""
     photo_id = models.BigIntegerField()
-    sizes = models.TextField()
     text = models.TextField()
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='photos')
+    # sizes - from Size
+
+
+class Size(models.Model):
+    """photo* type* url* width* height*"""
+    photo = models.ForeignKey(Photo, on_delete=models.CASCADE, related_name='sizes')
+    type = models.CharField(max_length=1)
+    url = models.URLField()
+    width = models.CharField(max_length=5)
+    height = models.CharField(max_length=5)
+
+
+class SizeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Size
+        fields = '__all__'
 
 
 class PhotoSerializer(serializers.ModelSerializer):
+    sizes = SizeSerializer(many=True, read_only=True)
+
     class Meta:
         model = Photo
         fields = '__all__'

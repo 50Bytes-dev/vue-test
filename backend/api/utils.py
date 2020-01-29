@@ -32,8 +32,17 @@ def parsing_posts(owner_id, count): #359659391
                 else:
                     photo_instance = Photo()
                     photo_instance.photo_id = photo['id']
-                photo_instance.sizes = photo['sizes']
                 photo_instance.text = photo['text']
                 photo_instance.post = post_instance
                 with transaction.atomic():
                     photo_instance.save()
+
+                for size in photo['sizes']:
+                    size_instance = Size()
+                    size_instance.photo = photo_instance
+                    size_instance.type = size['type']
+                    size_instance.url = size['url']
+                    size_instance.width = size['width']
+                    size_instance.height = size['height']
+                    with transaction.atomic():
+                        size_instance.save()
