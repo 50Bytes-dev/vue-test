@@ -4,6 +4,7 @@ from django.views.decorators.cache import never_cache
 from rest_framework import viewsets
 
 from .models import *
+from .serializers import *
 
 # Serve Vue Application
 index_view = never_cache(TemplateView.as_view(template_name='index.html'))
@@ -25,3 +26,11 @@ class PhotoViewSet(viewsets.ModelViewSet):
     """
     queryset = Photo.objects.all()
     serializer_class = PhotoSerializer
+
+
+class ProductViewSet(viewsets.ModelViewSet):
+    """
+    API конечная точка для Фото для редактирования и т.д.
+    """
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
