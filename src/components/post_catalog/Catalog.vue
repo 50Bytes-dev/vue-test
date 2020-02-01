@@ -9,7 +9,7 @@
 </template>
 
 <script>
-    import {mapState, mapActions} from 'vuex'
+    import {mapState} from 'vuex'
     import PostCard from "./PostCard";
 
     export default {
