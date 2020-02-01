@@ -8,11 +8,12 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 
-from .api.views import index_view, PostViewSet, PhotoViewSet
+from .api.views import *
 
 router = routers.DefaultRouter()
 router.register('post', PostViewSet)
 router.register('photo', PhotoViewSet)
+router.register('product', ProductViewSet)
 
 urlpatterns = [
 

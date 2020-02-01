@@ -1,6 +1,8 @@
 from datetime import datetime
 
 import vk
+from django.contrib.postgres.fields import ArrayField
+from django.contrib.postgres.indexes import BrinIndex
 from django.db import models, transaction
 from django.utils import timezone
 from rest_framework import serializers
@@ -18,11 +20,17 @@ class Post(models.Model):
 
 
 class Photo(models.Model):
-    """sizes* text* post*"""
+    """photo_id* sizes* text* post*"""
     photo_id = models.BigIntegerField()
     text = models.TextField()
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='photos')
     # sizes - from Size
+    # products - from Product
+
+    class Meta:
+        indexes = (
+            BrinIndex(fields=['id']),
+        )
 
 
 class Size(models.Model):
@@ -33,26 +41,20 @@ class Size(models.Model):
     width = models.CharField(max_length=5)
     height = models.CharField(max_length=5)
 
-
-class SizeSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Size
-        fields = '__all__'
+        indexes = (
+            BrinIndex(fields=['photo']),
+        )
 
 
-class PhotoSerializer(serializers.ModelSerializer):
-    sizes = SizeSerializer(many=True, read_only=True)
-
-    class Meta:
-        model = Photo
-        fields = '__all__'
-
-
-class PostSerializer(serializers.ModelSerializer):
-    photos = PhotoSerializer(many=True, read_only=True)
-    date_post = serializers.DateTimeField(format="%Y-%m-%d %H:%M")
-    date_created = serializers.DateTimeField(format="%Y-%m-%d %H:%M")
-
-    class Meta:
-        model = Post
-        fields = '__all__'
+class Product(models.Model):
+    """title photo* price_trade* price* percent description* sizes* places* categories*"""
+    title = models.CharField(max_length=300, default='')
+    photos = models.ForeignKey(Photo, on_delete=models.CASCADE, related_name='products')
+    price_trade = models.BigIntegerField()
+    price = models.BigIntegerField()
+    percent = models.PositiveIntegerField(default=0)
+    description = models.TextField()
+    sizes = ArrayField(models.CharField(max_length=80, verbose_name='Размер'), size=100, verbose_name='Размеры')
+    places = ArrayField(models.CharField(max_length=80, verbose_name='Место'), size=100, verbose_name='Места')
+    categories = ArrayField(models.CharField(max_length=80, verbose_name='Категория'), size=100, verbose_name='Категории')
