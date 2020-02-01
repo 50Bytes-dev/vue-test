@@ -1,19 +1,21 @@
 <template>
-    <div>
-        <div v-for="post in posts">
-            <CardPost :post = "post"></CardPost>
+    <div class="container">
+        <div class="row">
+            <div v-for="post in posts" class="col col-auto">
+                <PostCard :post = "post"></PostCard>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-    import {mapState, mapActions} from 'vuex'
-    import CardPost from "./CardPost";
+    import {mapState} from 'vuex'
+    import PostCard from "./PostCard";
 
     export default {
         name: "Catalog",
         components: {
-            CardPost
+            PostCard
         },
         computed:{
             ...mapState({

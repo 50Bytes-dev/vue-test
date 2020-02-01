@@ -39,4 +39,4 @@ class ProductViewSet(viewsets.ModelViewSet):
             return ProductGetSerializer
         if self.action == 'retrieve':
             return ProductGetSerializer
-        return ProductPostSerializer  # I dont' know what you want for create/destroy/update.
+        return ProductPostSerializer  # create/destroy/update.
