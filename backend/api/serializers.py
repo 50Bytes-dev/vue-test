@@ -28,7 +28,7 @@ class PostSerializer(serializers.ModelSerializer):
 
 
 class ProductGetSerializer(serializers.ModelSerializer):
-    post = PostSerializer(many=True, read_only=True)
+    post = PostSerializer(read_only=True)
 
     class Meta:
         model = Product

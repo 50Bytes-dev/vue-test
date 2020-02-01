@@ -27,7 +27,7 @@
                 return `https://vk.com/id${this.post.owner_id}?w=wall${this.post.from_id}_${this.post.post_id}`
             },
             photo_url: function() {
-                return  this.post.photos[0].sizes[3].url
+                return  this.post.photos[0].sizes[2].url
             }
         },
     }
