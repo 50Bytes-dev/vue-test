@@ -33,4 +33,10 @@ class ProductViewSet(viewsets.ModelViewSet):
     API конечная точка для Фото для редактирования и т.д.
     """
     queryset = Product.objects.all()
-    serializer_class = ProductSerializer
+
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return ProductGetSerializer
+        if self.action == 'retrieve':
+            return ProductGetSerializer
+        return ProductPostSerializer  # I dont' know what you want for create/destroy/update.

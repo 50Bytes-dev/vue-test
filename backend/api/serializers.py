@@ -25,9 +25,15 @@ class PostSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class ProductSerializer(serializers.ModelSerializer):
-    photos = PhotoSerializer(many=True)
+class ProductGetSerializer(serializers.ModelSerializer):
+    photos = PhotoSerializer(many=True, read_only=True)
 
+    class Meta:
+        model = Product
+        fields = '__all__'
+
+
+class ProductPostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = '__all__'
