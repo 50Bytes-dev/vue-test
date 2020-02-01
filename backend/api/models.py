@@ -17,6 +17,7 @@ class Post(models.Model):
     text = models.TextField()
     date_created = models.DateTimeField(default=timezone.now)
     # photos - from Photo
+    # products - from Product
 
 
 class Photo(models.Model):
@@ -25,7 +26,6 @@ class Photo(models.Model):
     text = models.TextField()
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='photos')
     # sizes - from Size
-    # products - from Product
 
     class Meta:
         indexes = (
@@ -50,7 +50,7 @@ class Size(models.Model):
 class Product(models.Model):
     """title photo* price_trade* price* percent description* sizes* places* categories*"""
     title = models.CharField(max_length=300, default='')
-    photos = models.ForeignKey(Photo, on_delete=models.CASCADE, related_name='products')
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='products')
     price_trade = models.BigIntegerField()
     price = models.BigIntegerField()
     percent = models.PositiveIntegerField(default=0)

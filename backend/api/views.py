@@ -32,7 +32,7 @@ class ProductViewSet(viewsets.ModelViewSet):
     """
     API конечная точка для Фото для редактирования и т.д.
     """
-    queryset = Product.objects.all()
+    queryset = Product.objects.select_related('post').prefetch_related('post__photos__sizes').all()
 
     def get_serializer_class(self):
         if self.action == 'list':

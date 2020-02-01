@@ -1,3 +1,5 @@
+from rest_framework.fields import *
+
 from .models import *
 
 
@@ -26,7 +28,7 @@ class PostSerializer(serializers.ModelSerializer):
 
 
 class ProductGetSerializer(serializers.ModelSerializer):
-    photos = PhotoSerializer(many=True, read_only=True)
+    post = PostSerializer(many=True, read_only=True)
 
     class Meta:
         model = Product
