@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Catalog from '@/components/post_catalog/Catalog'
 import PostDetail from '@/components/post_catalog/PostDetail'
 import ProductCatalog from "@/components/product/ProductCatalog";
+import ProductDetail from "@/components/product/ProductDetail";
 
 
 Vue.use(Router)
@@ -25,6 +26,12 @@ export default new Router({
       path: '/',
       name: 'product_catalog',
       component: ProductCatalog,
-    }
+    },
+     {
+       path: '/product_catalog/detail/:id',
+       name: 'product_detail',
+       component: ProductDetail,
+       props: true,
+     }
   ]
 })

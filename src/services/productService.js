@@ -11,5 +11,9 @@ export default {
                 return response.data
             })
     },
+     fetchProduct(id) {
+        return api.get(`product/${id}`)
+            .then(response => response.data)
+    },
 
 }
