@@ -5,6 +5,10 @@ export default {
         return api.post('product/', product)
             .then(response => response.data)
     },
+    editProduct(product){
+        return api.put(`product/${product.id}/`, product)
+            .then(response => response.data)
+    },
      fetchProducts() {
         return api.get(`product/`)
             .then(function (response) {

@@ -6,10 +6,8 @@
         <div class="card-body">
             <ul class="list-group  list-group-flush">
                 <li class="list-group-item bg-light" style="text-overflow: clip">
-                    Цена: <span class="text-muted">{{product.price}}</span>
-                </li>
-                <li class="list-group-item bg-light" style="text-overflow: clip">
-                    Размер: <span class="text-muted"></span>
+                    <h4 class="">{{product.price}}<i class="fas fa-ruble-sign"></i></h4>
+                    Размер: <span class="badge badge-secondary" style="font-size: 1.05em" v-for="size in product.sizes">{{size}}</span>
                 </li>
                 <li class="list-group-item bg-light" style="text-overflow: clip">
                     <router-link :to="{name: `product_detail`, params: {id: product.id}}" class="btn-block btn btn-primary" tag="button">Подробно</router-link>

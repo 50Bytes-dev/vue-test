@@ -132,7 +132,7 @@
             },
             addArrayElement(array, element,){
                 element=`${element}`
-                if(!array.includes(element)) {
+                if(!array.includes(element) && element.length > 0) {
                     let array_element = element.split(',')
                     for(let index in array_element) {
                         array.push(array_element[index].trim(' '))
@@ -140,20 +140,20 @@
                 }
 
             },
-            addProduct(){
-                let product = {
-                    post: this.post.id,
-                    title: this.title,
-                    price_trade: this.priceTrade,
-                    price: this.price,
-                    percent: this.percent,
-                    description: this.post.text,
-                    sizes: this.sizes,
-                    places: this.places,
-                    categories: this.categories,
-                }
-                this.$store.dispatch('product/addProduct', product)
-            },
+                addProduct(){
+                    let product = {
+                        post: this.post.id,
+                        title: this.title,
+                        price_trade: this.priceTrade,
+                        price: this.price,
+                        percent: this.percent,
+                        description: this.post.text,
+                        sizes: this.sizes,
+                        places: this.places,
+                        categories: this.categories,
+                    }
+                    this.$store.dispatch('product/addProduct', product)
+                },
             removeArrayElement(array, index){
                 array.splice(index, 1)
             },
