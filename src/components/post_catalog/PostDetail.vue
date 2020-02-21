@@ -161,7 +161,6 @@
         created: function() {
             this.$store.dispatch('post/getPost', this.id)
         }
-
     }
 </script>
 
